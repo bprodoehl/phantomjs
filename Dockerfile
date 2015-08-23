@@ -98,5 +98,5 @@ RUN apt-get install -y git
 #RUN git clone https://github.com/ariya/phantomjs.git
 COPY . phantomjs
 
-CMD cd phantomjs && git checkout ${PHANTOMJS_TAG} && ./build.sh --confirm && cp bin/phantomjs /output/.
-
+RUN cd phantomjs && git checkout ${PHANTOMJS_TAG} && ./build.sh --confirm
+CMD cp phantomjs/bin/phantomjs /output/.
