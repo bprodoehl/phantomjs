@@ -56,8 +56,8 @@ RUN curl -sL http://downloads.webmproject.org/releases/webp/libwebp-${LIBWEBP_VE
 RUN cd libwebp-${LIBWEBP_VER} && ./configure --prefix=/usr --enable-static --disable-shared && make all -j${NUM_CORES} && make install
 
 # OpenSSL
-ENV OPENSSL_VER=1.0.2d
-RUN curl -sL http://openssl.org/source/openssl-${OPENSSL_VER}.tar.gz | tar -xz
+ENV OPENSSL_VER=1.0.2e
+RUN curl -sL https://openssl.org/source/openssl-${OPENSSL_VER}.tar.gz | tar -xz
 RUN cd openssl-${OPENSSL_VER} && ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib && make all && make install
 
 RUN apt-get install -y pkg-config
