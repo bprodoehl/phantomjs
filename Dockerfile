@@ -56,8 +56,8 @@ RUN curl -sL http://downloads.webmproject.org/releases/webp/libwebp-${LIBWEBP_VE
 RUN cd libwebp-${LIBWEBP_VER} && ./configure --prefix=/usr --enable-static --disable-shared && make all -j${NUM_CORES} && make install
 
 # OpenSSL
-ENV OPENSSL_VER=1.0.2a
-RUN curl -sL http://openssl.org/source/openssl-${OPENSSL_VER}.tar.gz | tar -xz
+ENV OPENSSL_VER=1.0.2e
+RUN curl -sL https://openssl.org/source/openssl-${OPENSSL_VER}.tar.gz | tar -xz
 RUN cd openssl-${OPENSSL_VER} && ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib && make all && make install
 
 RUN apt-get install -y pkg-config
@@ -96,7 +96,7 @@ RUN cd icu/source && ./configure --prefix=/usr --enable-static --disable-shared 
 ENV PHANTOMJS_TAG=master
 RUN apt-get install -y git
 #RUN git clone https://github.com/ariya/phantomjs.git
-RUN git clone https://github.com/bprodoehl/phantomjs.git
+COPY . phantomjs
 
-CMD cd phantomjs && git checkout ${PHANTOMJS_TAG} && ./build.sh --confirm && cp bin/phantomjs /output/.
-
+RUN cd phantomjs && git checkout ${PHANTOMJS_TAG} && ./build.sh --confirm
+CMD cp phantomjs/bin/phantomjs /output/.
